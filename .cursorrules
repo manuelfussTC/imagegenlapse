@@ -1,0 +1,12 @@
+# ImagegeneratorGPT4o Regeln
+
+## Modell-Anforderungen
+- Für die Bildgenerierung muss das Modell "gpt-image-1" verwendet werden, sobald die Organisation verifiziert ist
+- Für den Zugriff auf gpt-image-1 muss die OpenAI-Organisation verifiziert sein
+- Bei fehlendem Zugriff auf gpt-image-1 kann temporär "dall-e-2" als Fallback verwendet werden
+
+## Projektregeln
+- Alle generierten Bilder werden im Ordner "imagegen" mit einem Index gespeichert
+- Das Originalbild wird als PNG mit optimierter Größe umgewandelt
+- Die API-Keys werden in der .env-Datei gespeichert (wird von cursor ignoriert)
+- Für jede Bildgeneration sollte der Prompt "create the exact replica of this image, don't change a thing" verwendet werden 

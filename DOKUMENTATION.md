@@ -1,51 +1,43 @@
-# ImagegenLapse
+# ImagegeneratorGPT4o - Dokumentation
 
-Ein Tool zur iterativen Bildverarbeitung mit OpenAI's GPT-Image-1 Modell.
+## Inhalt
+1. [Überblick](#überblick)
+2. [Installation](#installation)
+3. [Befehlszeilenparameter](#befehlszeilenparameter)
+4. [Anwendungsbeispiele](#anwendungsbeispiele)
+5. [Iterationsprozess verstehen](#iterationsprozess-verstehen)
+6. [Tipps und Fehlerbehebung](#tipps-und-fehlerbehebung)
 
 ## Überblick
 
-ImagegenLapse ist ein Python-Tool, das Bilder mit OpenAI's GPT-Image-1 Modell iterativ verarbeitet. Das Tool nimmt ein Ausgangsbild und wendet wiederholt den Prompt "create the exact replica of this image, don't change a thing" an. Jedes Ergebnis wird als Eingabe für die nächste Iteration verwendet.
+ImagegeneratorGPT4o ist ein Python-Tool, das Bilder mit OpenAI's GPT-Image-1 Modell verarbeitet. Das Tool nimmt ein Ausgangsbild und wendet wiederholt (iterativ) den Prompt "create the exact replica of this image, don't change a thing" an. Das Ergebnis jeder Iteration wird als Eingabe für die nächste Iteration verwendet.
 
-Dies ermöglicht es, zu beobachten, wie sich das Bild über mehrere Generationen der "exakten Replikation" verändert - ein interessantes Experiment, um kleine Veränderungen und Interpretationen durch das KI-Modell zu untersuchen.
+Dies ermöglicht die Beobachtung, wie sich das Bild über mehrere Generationen der "exakten Replikation" verändert - ein interessantes Experiment zur Untersuchung kleiner Veränderungen und Interpretationen durch das KI-Modell.
 
-## Schnellstart
+## Installation
 
-1. **Repository klonen:**
-   ```bash
-   git clone https://github.com/manuelfussTC/imagegenlapse.git
-   cd imagegenlapse
-   ```
+### Voraussetzungen
+- Python 3.7 oder höher
+- OpenAI API-Schlüssel
+- Verifizierte OpenAI-Organisation (für den Zugriff auf gpt-image-1)
 
-2. **Abhängigkeiten installieren:**
+### Schritte
+
+1. Repository klonen oder Dateien herunterladen
+2. Abhängigkeiten installieren:
    ```bash
    pip install -r requirements.txt
    ```
-
-3. **API-Key einrichten:**
-   Kopiere die `.env.example` Datei zu `.env` und füge deinen API-Schlüssel ein:
+3. API-Key einrichten:
    ```bash
    cp .env.example .env
    # Bearbeite .env und füge deinen eigenen API-Schlüssel ein
    ```
    > **WICHTIG:** Commit niemals deine `.env`-Datei! Sie ist bereits in `.gitignore` eingetragen.
 
-4. **Bilderverzeichnis erstellen:**
-   Lege ein Bild in den Ordner `images/` oder verwende das vorhandene Beispielbild.
-
-5. **Tool ausführen:**
-   ```bash
-   python image_replicator.py --keep-aspect-ratio
-   ```
-
-## Voraussetzungen
-
-- Python 3.7 oder höher
-- OpenAI API-Schlüssel
-- Verifizierte OpenAI-Organisation (für den Zugriff auf gpt-image-1)
-
-> **Wichtig:** Für die Verwendung des Modells `gpt-image-1` muss deine OpenAI-Organisation verifiziert sein. Dies kannst du unter [https://platform.openai.com/settings/organization/general](https://platform.openai.com/settings/organization/general) erledigen.
-
 ## Befehlszeilenparameter
+
+Das Tool bietet mehrere Parameter zur Anpassung des Generierungsprozesses:
 
 | Parameter | Typ | Standard | Beschreibung |
 |-----------|-----|----------|--------------|
@@ -73,7 +65,7 @@ python image_replicator.py --initial-image pfad/zu/meinem/bild.jpg
 python image_replicator.py --iterations 20
 ```
 
-### Seitenverhältnis beibehalten (empfohlen)
+### Seitenverhältnis beibehalten
 ```bash
 python image_replicator.py --keep-aspect-ratio
 ```
@@ -82,6 +74,11 @@ python image_replicator.py --keep-aspect-ratio
 Wenn bereits Iterationen im `imagegen` Ordner existieren:
 ```bash
 python image_replicator.py --continue --iterations 10
+```
+
+### Kombinierte Parameter
+```bash
+python image_replicator.py --initial-image meinbild.png --iterations 15 --keep-aspect-ratio
 ```
 
 ## Iterationsprozess verstehen
@@ -96,13 +93,13 @@ Der Iterationsprozess funktioniert wie folgt:
 2. **Iterative Verarbeitung**:
    - Für jede Iteration wird das Bild an die OpenAI API gesendet
    - Der Prompt "create the exact replica of this image, don't change a thing" wird angewendet
-   - Das generierte Bild wird als `iteration_N.png` im Ordner `imagegen/` gespeichert
+   - Das generierte Bild wird als `iteration_N.png` gespeichert (wobei N die Iterationsnummer ist)
    - Das neue Bild wird als Eingabe für die nächste Iteration verwendet
 
 3. **Fortsetzungsfunktion**:
-   - Mit dem Parameter `--continue` sucht das Skript automatisch nach der letzten Iteration
+   - Mit dem Parameter `--continue` sucht das Skript automatisch nach der letzten Iteration im Verzeichnis
    - Es setzt den Prozess mit der nächsthöheren Iterationsnummer fort
-   - Dies ermöglicht, jederzeit weitere Iterationen hinzuzufügen
+   - Dies ermöglicht, jederzeit weitere Iterationen hinzuzufügen, ohne von vorne beginnen zu müssen
 
 ### Beispielablauf:
 
@@ -133,11 +130,16 @@ Tag 2: python image_replicator.py --continue --iterations 10 --keep-aspect-ratio
    ```
    Fehler: OPENAI_API_KEY nicht in der .env Datei gefunden oder nicht gesetzt.
    ```
-   **Lösung**: Erstellen Sie eine .env-Datei im Hauptverzeichnis mit Ihrem API-Schlüssel.
+   **Lösung**: Erstellen Sie eine .env-Datei basierend auf der .env.example-Datei mit Ihrem API-Schlüssel.
 
 3. **Bildformat-Probleme**:
    Das Tool konvertiert automatisch Bilder in das PNG-Format mit korrekter Orientierung und Größe. Bei Problemen versuchen Sie, das Bild vorher in ein anderes Format zu konvertieren.
 
-## Autor
+### Sicherheitshinweise
+- Fügen Sie niemals Ihre echten API-Schlüssel in Dateien ein, die ins Git-Repository übertragen werden
+- Die .env-Datei ist bereits in .gitignore eingetragen und wird nicht committed
+- Verwenden Sie immer die .env.example als Vorlage und kopieren Sie diese zu .env für Ihre persönlichen Schlüssel
 
-Manuel Fuss
+### Iterationszeit
+- Jede Iteration dauert etwa 20-60 Sekunden, abhängig von der Serverauslastung und Bildgröße
+- Planen Sie ausreichend Zeit für größere Iterationsmengen ein 
