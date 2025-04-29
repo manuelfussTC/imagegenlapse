@@ -43,7 +43,7 @@ Dies ermöglicht es, zu beobachten, wie sich das Bild über mehrere Generationen
 - OpenAI API-Schlüssel
 - Verifizierte OpenAI-Organisation (für den Zugriff auf gpt-image-1)
 
-> **Wichtig:** Für die Verwendung des Modells `gpt-image-1` muss deine OpenAI-Organisation verifiziert sein. Dies kannst du unter [https://platform.openai.com/settings/organization/general](https://platform.openai.com/settings/organization/general) erledigen.
+> **WICHTIG:** GPT-Image-1 erfordert eine verifizierte OpenAI-Organisation mit validiertem Business-Status. Privatpersonen haben in der Regel keinen Zugriff auf dieses Modell. Die Organisation muss unter [https://platform.openai.com/settings/organization/general](https://platform.openai.com/settings/organization/general) vollständig verifiziert sein.
 
 ## Befehlszeilenparameter
 
@@ -127,7 +127,7 @@ Tag 2: python image_replicator.py --continue --iterations 10 --keep-aspect-ratio
    ```
    Your organization must be verified to use the model `gpt-image-1`
    ```
-   **Lösung**: Verifizieren Sie Ihre OpenAI-Organisation unter [https://platform.openai.com/settings/organization/general](https://platform.openai.com/settings/organization/general)
+   **Lösung**: Verifizieren Sie Ihre OpenAI-Organisation unter [https://platform.openai.com/settings/organization/general](https://platform.openai.com/settings/organization/general). Privatkonten können dieses Modell in der Regel nicht nutzen - ein Geschäftsaccount ist erforderlich.
 
 2. **API-Schlüssel nicht gefunden**:
    ```
